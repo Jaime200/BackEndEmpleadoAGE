@@ -15,7 +15,28 @@ namespace Servicios.Servicios
             SqlDataReader reader = null;
             try
             {
-                return true;    
+                string sQUery = @"INSERT INTO [dbo].[EMPLEADO]
+           ([DPI] ,[PRIMER_NOMBRE] ,[SEGUNDO_NOMBRE] ,[PRIMER_APELLIDO] ,[SEGUNDO_APELLIDO] ,[APELLIDO_CASADA] ,[ESTADO_CIVIL] ,[SEXO],[NIT],[AFILIACION_IGSS],[IRTRA],[PASAPORTE])
+            VALUES
+           ( @DPI,@PRIMER_NOMBRE,@SEGUNDO_NOMBRE,@PRIMER_APELLIDO,@SEGUNDO_APELLIDO,@APELLIDO_CASADA,@ESTADO_CIVIL,@SEXO,@NIT,@AFILIACION_IGSS,@IRTRA,@PASAPORTE)";
+                SqlCommand command = new SqlCommand(sQUery, cnn);
+                
+                command.Parameters.AddWithValue("@DPI", empleado.DPI);
+                command.Parameters.AddWithValue("@PRIMER_NOMBRE", empleado.PRIMER_APELLIDO);
+                command.Parameters.AddWithValue("@SEGUNDO_NOMBRE", empleado.SEGUNDO_NOMBRE);
+                command.Parameters.AddWithValue("@PRIMER_APELLIDO", empleado.PRIMER_APELLIDO);
+                command.Parameters.AddWithValue("@SEGUNDO_APELLIDO", empleado.SEGUNDO_APELLIDO);
+                command.Parameters.AddWithValue("@APELLIDO_CASADA", empleado.APELLIDO_CASADA);
+                command.Parameters.AddWithValue("@ESTADO_CIVIL", empleado.ESTADO_CIVIL);
+                command.Parameters.AddWithValue("@SEXO", empleado.SEXO);
+                command.Parameters.AddWithValue("@NIT", empleado.NIT);
+                command.Parameters.AddWithValue("@AFILIACION_IGSS", empleado.AFILIACION_IGSS);
+                command.Parameters.AddWithValue("@IRTRA", empleado.IRTRA);
+                command.Parameters.AddWithValue("@PASAPORTE", empleado.PASAPORTE);
+
+                 int resp = command.ExecuteNonQuery();
+                if (resp == 0) throw new Exception($"No se pudo realizar el registro del empleado {empleado.DPI}");
+                return true;
             }
             catch (Exception ex)
             {
@@ -24,7 +45,6 @@ namespace Servicios.Servicios
             }
             finally
             {
-
             }
         }
 
