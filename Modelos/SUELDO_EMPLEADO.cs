@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Modelos
 {
-    class SUELDO_EMPLEADO
+    public class SUELDO_EMPLEADO
     {
         private string iD;
         private int dPI;

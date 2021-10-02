@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Modelos
 {
-    class EMPLEADO
+    public class EMPLEADO
     {
 
         private int dPI;

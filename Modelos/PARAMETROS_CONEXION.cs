@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Modelos
 {
-    class PARAMETROS_CONEXION
+    public class PARAMETROS_CONEXION
     {
         private string dB;
         private string sERVER;
