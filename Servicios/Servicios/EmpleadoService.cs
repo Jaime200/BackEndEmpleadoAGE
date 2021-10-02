@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Servicios.Servicios
 {
-    class EmpleadoService : Interfaz.IEMPLEADO
+    public class EmpleadoService : Interfaz.IEMPLEADO
     {
         public bool addEmpleado(SqlConnection cnn, EMPLEADO empleado)
         {

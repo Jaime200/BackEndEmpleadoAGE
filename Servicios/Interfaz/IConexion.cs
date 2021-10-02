@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Servicios.Interfaz
 {
-    interface IConexion
+    public interface IConexion
     {
         public SqlConnection getConexion();
     }

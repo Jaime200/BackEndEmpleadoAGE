@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Servicios.Interfaz
 {
-    interface IEMPLEADO
+    public interface IEMPLEADO
     {
         public List<Modelos.EMPLEADO> getEmpleados(SqlConnection cnn);
 
