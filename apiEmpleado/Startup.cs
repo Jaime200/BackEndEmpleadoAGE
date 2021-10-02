@@ -26,7 +26,13 @@ namespace apiEmpleado
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            Modelos.PARAMETROS_CONEXION parametro_conexion = new Modelos.PARAMETROS_CONEXION();
+            parametro_conexion.SERVER = "DESKTOP-CVIG606\\SQLEXPRESS2019";
+            parametro_conexion.DB = "agexport";
+            parametro_conexion.USER = "sa";
+            parametro_conexion.PSW = "12345";
+            services.AddSingleton<Servicios.Interfaz.IConexion>(cnn => new Servicios.Servicios.ConexionService(parametro_conexion));
+            services.AddScoped<Servicios.Interfaz.IEMPLEADO, Servicios.Servicios.EmpleadoService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
