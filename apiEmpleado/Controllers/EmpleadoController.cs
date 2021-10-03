@@ -39,7 +39,7 @@ namespace apiEmpleado.Controllers
         }
 
         // GET api/<EmpleadoController>/5
-        [HttpGet("{id}")]
+        [HttpGet("{dpi}")]
         public ActionResult<Modelos.EMPLEADO> Get(string dpi)
         {
             try
@@ -56,7 +56,7 @@ namespace apiEmpleado.Controllers
 
         // POST api/<EmpleadoController>
         [HttpPost]
-        public ActionResult<Modelos.EMPLEADO> Post([FromBody] Modelos.EMPLEADO empleado)
+        public ActionResult<bool> Post([FromBody] Modelos.EMPLEADO empleado)
         {
             try
             {
@@ -71,15 +71,35 @@ namespace apiEmpleado.Controllers
         }
 
         // PUT api/<EmpleadoController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut()]
+        public ActionResult<bool> Put([FromBody] Modelos.EMPLEADO empleado)
         {
+            try
+            {
+                var result = this.empleadoService.putEmpleado(this.conexionSql.getConexion(), empleado);
+                return StatusCode(200, result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+
+            }
         }
 
         // DELETE api/<EmpleadoController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{DPI}")]
+        public ActionResult<bool> Delete(string DPI)
         {
+            try
+            {
+                var result = this.empleadoService.deleteEmpleado(this.conexionSql.getConexion(), DPI);
+                return StatusCode(200, result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+
+            }
         }
     }
 }

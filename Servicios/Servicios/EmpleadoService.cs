@@ -94,6 +94,7 @@ namespace Servicios.Servicios
                                     ,PASAPORTE 
                                     FROM EMPLEADO WHERE DPI = @DPI";
                 SqlCommand command = new SqlCommand(sQUery, cnn);
+                command.Parameters.AddWithValue("@DPI", empleado.DPI);
                 reader = command.ExecuteReader();
                 if(!reader.HasRows) { throw new Exception($"El empleado con dpi {DPI} no existe"); }
                 while (reader.Read())
@@ -107,7 +108,7 @@ namespace Servicios.Servicios
                     empleado.ESTADO_CIVIL = reader.GetInt32(6);
                     empleado.SEXO = reader.GetInt32(7);
                     empleado.NIT= reader.GetString(8);
-                    empleado.AFILIACION_IGSS= reader.GetString(0);
+                    empleado.AFILIACION_IGSS= reader.GetString(9);
                     empleado.IRTRA= reader.GetString(10);
                     empleado.PASAPORTE =reader.GetString(11);
                     break;
@@ -183,7 +184,7 @@ namespace Servicios.Servicios
             {
                 string sQUery = @"UPDATE [dbo].[EMPLEADO]
                                    SET 
-                                      ,[PRIMER_NOMBRE] = @PRIMER_NOMBRE
+                                      [PRIMER_NOMBRE] = @PRIMER_NOMBRE
                                       ,[SEGUNDO_NOMBRE] = @SEGUNDO_NOMBRE
                                       ,[PRIMER_APELLIDO] = @PRIMER_APELLIDO
                                       ,[SEGUNDO_APELLIDO] = @SEGUNDO_APELLIDO
@@ -198,7 +199,7 @@ namespace Servicios.Servicios
                 SqlCommand command = new SqlCommand(sQUery, cnn);
 
                 command.Parameters.AddWithValue("@DPI", empleado.DPI);
-                command.Parameters.AddWithValue("@PRIMER_NOMBRE", empleado.PRIMER_APELLIDO);
+                command.Parameters.AddWithValue("@PRIMER_NOMBRE", empleado.PRIMER_NOMBRE);
                 command.Parameters.AddWithValue("@SEGUNDO_NOMBRE", ((object)empleado.SEGUNDO_NOMBRE ?? DBNull.Value));
                 command.Parameters.AddWithValue("@PRIMER_APELLIDO", empleado.PRIMER_APELLIDO);
                 command.Parameters.AddWithValue("@SEGUNDO_APELLIDO", ((object)empleado.SEGUNDO_APELLIDO ?? DBNull.Value));
