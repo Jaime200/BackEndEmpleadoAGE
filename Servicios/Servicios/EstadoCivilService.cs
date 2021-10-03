@@ -21,6 +21,7 @@ namespace Servicios.Servicios
                                       FROM [dbo].[ESTADO_CIVIL]";
                 SqlCommand command = new SqlCommand(sQUery, cnn);
                 reader = command.ExecuteReader();
+                
                 while (reader.Read())
                 {
                     Modelos.ESTADO_CIVIL estado_civil = new Modelos.ESTADO_CIVIL();
