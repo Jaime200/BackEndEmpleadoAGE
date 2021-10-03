@@ -72,11 +72,11 @@ namespace apiEmpleado.Controllers
 
         // PUT api/<EmpleadoController>/5
         [HttpPut()]
-        public ActionResult<bool> Put([FromBody] Modelos.EMPLEADO empleado)
+        public ActionResult<bool> Put( Modelos.EMPLEADO updateEmpleado)
         {
             try
             {
-                var result = this.empleadoService.putEmpleado(this.conexionSql.getConexion(), empleado);
+                var result = this.empleadoService.putEmpleado(this.conexionSql.getConexion(), updateEmpleado);
                 return StatusCode(200, result);
             }
             catch (Exception ex)
