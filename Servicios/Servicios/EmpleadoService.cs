@@ -22,7 +22,7 @@ namespace Servicios.Servicios
                 SqlCommand command = new SqlCommand(sQUery, cnn);
                 
                 command.Parameters.AddWithValue("@DPI", empleado.DPI);
-                command.Parameters.AddWithValue("@PRIMER_NOMBRE", empleado.PRIMER_APELLIDO);
+                command.Parameters.AddWithValue("@PRIMER_NOMBRE", empleado.PRIMER_NOMBRE);
                 command.Parameters.AddWithValue("@SEGUNDO_NOMBRE", ((object)empleado.SEGUNDO_NOMBRE ?? DBNull.Value));
                 command.Parameters.AddWithValue("@PRIMER_APELLIDO", empleado.PRIMER_APELLIDO);
                 command.Parameters.AddWithValue("@SEGUNDO_APELLIDO", ((object)empleado.SEGUNDO_APELLIDO ?? DBNull.Value));
