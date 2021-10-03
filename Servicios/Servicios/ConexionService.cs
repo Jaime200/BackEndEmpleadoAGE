@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using System.Data;
+
 namespace Servicios.Servicios
 {
     public class ConexionService : Interfaz.IConexion
@@ -13,7 +15,9 @@ namespace Servicios.Servicios
         {
             try
             {
-               this.cnn =this.singleConn(parametrosConexion);
+                SqlConnection cnn = new SqlConnection($"Data Source={parametrosConexion.SERVER};Initial Catalog={parametrosConexion.DB};User ID={parametrosConexion.USER};Password={parametrosConexion.PSW}");
+                cnn.Open();
+                this.cnn = cnn;
             }
             catch (Exception ex)
             {
@@ -23,6 +27,8 @@ namespace Servicios.Servicios
         }
         public SqlConnection getConexion()
         {
+            if (this.cnn.State == ConnectionState.Closed)
+                this.cnn.Open();
             return this.cnn;
         }
 
@@ -32,7 +38,7 @@ namespace Servicios.Servicios
         {
             try
             {
-                SqlConnection cnn = new SqlConnection($"Data Source={parametrosConexion.SERVER};Initial Catalog={parametrosConexion.DB};User ID={parametrosConexion.USER};Password={parametrosConexion.PSW}");
+                SqlConnection cnn = new SqlConnection($"Data Source={parametrosConexion.SERVER};Initial Catalog={parametrosConexion.DB};User ID={parametrosConexion.USER};Password={parametrosConexion.PSW};MultipleActiveResultSets=True");
                 cnn.Open();
                 return cnn;
             }
