@@ -23,10 +23,10 @@ namespace Servicios.Servicios
                 
                 command.Parameters.AddWithValue("@DPI", empleado.DPI);
                 command.Parameters.AddWithValue("@PRIMER_NOMBRE", empleado.PRIMER_APELLIDO);
-                command.Parameters.AddWithValue("@SEGUNDO_NOMBRE", empleado.SEGUNDO_NOMBRE);
+                command.Parameters.AddWithValue("@SEGUNDO_NOMBRE", ((object)empleado.SEGUNDO_NOMBRE ?? DBNull.Value));
                 command.Parameters.AddWithValue("@PRIMER_APELLIDO", empleado.PRIMER_APELLIDO);
-                command.Parameters.AddWithValue("@SEGUNDO_APELLIDO", empleado.SEGUNDO_APELLIDO);
-                command.Parameters.AddWithValue("@APELLIDO_CASADA", empleado.APELLIDO_CASADA);
+                command.Parameters.AddWithValue("@SEGUNDO_APELLIDO", ((object)empleado.SEGUNDO_APELLIDO ?? DBNull.Value));
+                command.Parameters.AddWithValue("@APELLIDO_CASADA", ((object)empleado.APELLIDO_CASADA ?? DBNull.Value));
                 command.Parameters.AddWithValue("@ESTADO_CIVIL", empleado.ESTADO_CIVIL);
                 command.Parameters.AddWithValue("@SEXO", empleado.SEXO);
                 command.Parameters.AddWithValue("@NIT", empleado.NIT);
@@ -48,12 +48,20 @@ namespace Servicios.Servicios
             }
         }
 
-        public bool deleteEmpleado(SqlConnection cnn, EMPLEADO empleado)
+        public bool deleteEmpleado(SqlConnection cnn, string DPI)
         {
+            SqlDataReader reader = null;
             try
             {
-                return true;
+                string sQUery = @"UPDATE [dbo].[EMPLEADO]   SET   [ELIMINADO] = 1 WHERE [DPI] = @DPI";
+                SqlCommand command = new SqlCommand(sQUery, cnn);
 
+                command.Parameters.AddWithValue("@DPI", DPI);
+                
+
+                int resp = command.ExecuteNonQuery();
+                if (resp == 0) throw new Exception($"No se pudo realizar la accion para el registro del empleado {DPI}");
+                return true;
             }
             catch (Exception ex)
             {
@@ -62,7 +70,6 @@ namespace Servicios.Servicios
             }
             finally
             {
-
             }
         }
 
@@ -163,12 +170,50 @@ namespace Servicios.Servicios
 
                 throw new Exception(ex.Message, ex.InnerException);
             }
+            finally
+            {
+                if (reader != null) reader.Close();
+            }
         }
 
         public bool putEmpleado(SqlConnection cnn, EMPLEADO empleado)
         {
+            SqlDataReader reader = null;
             try
             {
+                string sQUery = @"UPDATE [dbo].[EMPLEADO]
+                                   SET 
+                                      ,[PRIMER_NOMBRE] = @PRIMER_NOMBRE
+                                      ,[SEGUNDO_NOMBRE] = @SEGUNDO_NOMBRE
+                                      ,[PRIMER_APELLIDO] = @PRIMER_APELLIDO
+                                      ,[SEGUNDO_APELLIDO] = @SEGUNDO_APELLIDO
+                                      ,[APELLIDO_CASADA] = @APELLIDO_CASADA
+                                      ,[ESTADO_CIVIL] = @ESTADO_CIVIL
+                                      ,[SEXO] = @SEXO
+                                      ,[NIT] = @NIT
+                                      ,[AFILIACION_IGSS] = @AFILIACION_IGSS
+                                      ,[IRTRA] = @IRTRA
+                                      ,[PASAPORTE] = @PASAPORTE
+                                 WHERE [DPI] = @DPI";
+                SqlCommand command = new SqlCommand(sQUery, cnn);
+
+                command.Parameters.AddWithValue("@DPI", empleado.DPI);
+                command.Parameters.AddWithValue("@PRIMER_NOMBRE", empleado.PRIMER_APELLIDO);
+                command.Parameters.AddWithValue("@SEGUNDO_NOMBRE", ((object)empleado.SEGUNDO_NOMBRE ?? DBNull.Value));
+                command.Parameters.AddWithValue("@PRIMER_APELLIDO", empleado.PRIMER_APELLIDO);
+                command.Parameters.AddWithValue("@SEGUNDO_APELLIDO", ((object)empleado.SEGUNDO_APELLIDO ?? DBNull.Value));
+                command.Parameters.AddWithValue("@APELLIDO_CASADA", ((object)empleado.APELLIDO_CASADA ?? DBNull.Value));
+                command.Parameters.AddWithValue("@ESTADO_CIVIL", empleado.ESTADO_CIVIL);
+                command.Parameters.AddWithValue("@SEXO", empleado.SEXO);
+                command.Parameters.AddWithValue("@NIT", empleado.NIT);
+                command.Parameters.AddWithValue("@AFILIACION_IGSS", empleado.AFILIACION_IGSS);
+                command.Parameters.AddWithValue("@IRTRA", empleado.IRTRA);
+                command.Parameters.AddWithValue("@PASAPORTE", empleado.PASAPORTE);
+
+
+
+                int resp = command.ExecuteNonQuery();
+                if (resp == 0) throw new Exception($"No se pudo realizar la accion para el registro del empleado {empleado.DPI}");
                 return true;
             }
             catch (Exception ex)
@@ -178,7 +223,6 @@ namespace Servicios.Servicios
             }
             finally
             {
-              
             }
         }
     }

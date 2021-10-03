@@ -17,7 +17,7 @@ namespace Servicios.Interfaz
 
         public bool putEmpleado(SqlConnection cnn,Modelos.EMPLEADO empleado);
 
-        public bool deleteEmpleado(SqlConnection cnn,Modelos.EMPLEADO empleado);
+        public bool deleteEmpleado(SqlConnection cnn,string DPI);
         
     }
 }
