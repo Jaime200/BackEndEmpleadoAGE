@@ -71,7 +71,7 @@ namespace Servicios.Servicios
                                   ,[SUELDO_BASE]
                                   ,[BONIFICACION]
                               FROM [dbo].[SUELDO_EMPLEADO]
-                              where DPI = @DPI";
+                              where DPI = @DPI AND ELIMINADO = 0";
                 SqlCommand command = new SqlCommand(sQUery, cnn);
                 command.Parameters.AddWithValue("@DPI", DPI);
                 reader = command.ExecuteReader();
@@ -106,6 +106,7 @@ namespace Servicios.Servicios
                                    SET [DPI] = @DPI
                                       ,[SUELDO_BASE] = @SUELDO_BASE
                                       ,[BONIFICACION] = @BONIFICACION
+                                        ,ELIMINADO = 0 
                                 WHERE [DPI] = @DPI AND [ID] = @ID";
                 SqlCommand command = new SqlCommand(sQUery, cnn);
 
