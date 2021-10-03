@@ -9,7 +9,7 @@ namespace Modelos
     public class EMPLEADO
     {
 
-        private int dPI;
+        private Int64 dPI;
         private string pRIMER_NOMBRE;
         private string sEGUNDO_NOMBRE;
         private string pRIMER_APELLIDO;
@@ -22,7 +22,7 @@ namespace Modelos
         private string iRTRA;
         private string pASAPORTE;
 
-        public int DPI { get => dPI; set => dPI = value; }
+        public Int64 DPI { get => dPI; set => dPI = value; }
         public string PRIMER_NOMBRE { get => pRIMER_NOMBRE; set => pRIMER_NOMBRE = value; }
         public string SEGUNDO_NOMBRE { get => sEGUNDO_NOMBRE; set => sEGUNDO_NOMBRE = value; }
         public string PRIMER_APELLIDO { get => pRIMER_APELLIDO; set => pRIMER_APELLIDO = value; }

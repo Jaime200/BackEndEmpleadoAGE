@@ -8,12 +8,12 @@ namespace Modelos
 {
     public class SUELDO_EMPLEADO
     {
-        private int iD;
+        private Int64 iD;
         private int dPI;
         private decimal sUELDO_BASE;
         private decimal bONIFICACION;
 
-        public int ID { get => iD; set => iD = value; }
+        public Int64 ID { get => iD; set => iD = value; }
         public int DPI { get => dPI; set => dPI = value; }
         public decimal SUELDO_BASE { get => sUELDO_BASE; set => sUELDO_BASE = value; }
         public decimal BONIFICACION { get => bONIFICACION; set => bONIFICACION = value; }
