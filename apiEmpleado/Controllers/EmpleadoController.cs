@@ -56,11 +56,11 @@ namespace apiEmpleado.Controllers
 
         // POST api/<EmpleadoController>
         [HttpPost]
-        public ActionResult<bool> Post([FromBody] Modelos.EMPLEADO empleado)
+        public ActionResult<bool> Post([FromBody] Modelos.EMPLEADO newEmpleado)
         {
             try
             {
-                var result = this.empleadoService.addEmpleado(this.conexionSql.getConexion(), empleado);
+                var result = this.empleadoService.addEmpleado(this.conexionSql.getConexion(), newEmpleado);
                 return StatusCode(201, result);
             }
             catch (Exception ex)
