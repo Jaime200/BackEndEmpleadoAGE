@@ -31,12 +31,12 @@ namespace apiEmpleado
             parametro_conexion.DB = "agexport";
             parametro_conexion.USER = "sa";
             parametro_conexion.PSW = "12345";
-            services.AddSingleton<Servicios.Interfaz.IConexion>(cnn => new Servicios.Servicios.ConexionService(parametro_conexion));
+            services.AddScoped<Servicios.Interfaz.IConexion>(cnn => new Servicios.Servicios.ConexionService(parametro_conexion));
             services.AddScoped<Servicios.Interfaz.IEMPLEADO, Servicios.Servicios.EmpleadoService>();
             services.AddScoped<Servicios.Interfaz.ISUELDO_EMPLEADO, Servicios.Servicios.EmpleadoSueldoService>();
             services.AddScoped<Servicios.Interfaz.ISEXO, Servicios.Servicios.SexoService>();
             services.AddScoped<Servicios.Interfaz.IESTADO_CIVIL, Servicios.Servicios.EstadoCivilService>();
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null); ;
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "apiEmpleado", Version = "v1" });
