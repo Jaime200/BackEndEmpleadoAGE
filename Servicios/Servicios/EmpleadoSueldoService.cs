@@ -39,7 +39,7 @@ namespace Servicios.Servicios
         {
             try
             {
-                string sQUery = @"UPDATE [dbo].[SUELDO_EMPLEADO]  SET   [ELIMINADO] = 1 WHERE [ID] = @ID [DPI] = @DPI";
+                string sQUery = @"UPDATE [dbo].[SUELDO_EMPLEADO]  SET   [ELIMINADO] = 1 WHERE [ID] = @ID and [DPI] = @DPI";
                 SqlCommand command = new SqlCommand(sQUery, cnn);
 
                 command.Parameters.AddWithValue("@ID", ID);
@@ -60,7 +60,7 @@ namespace Servicios.Servicios
             }
         }
 
-        public List<SUELDO_EMPLEADO> getEmpleadoSueldos(SqlConnection cnn)
+        public List<SUELDO_EMPLEADO> getEmpleadoSueldos(SqlConnection cnn, string DPI)
         {
             SqlDataReader reader = null;
             List<Modelos.SUELDO_EMPLEADO> empleadoSueldos = new List<Modelos.SUELDO_EMPLEADO>();
@@ -73,6 +73,7 @@ namespace Servicios.Servicios
                               FROM [dbo].[SUELDO_EMPLEADO]
                               where DPI = @DPI";
                 SqlCommand command = new SqlCommand(sQUery, cnn);
+                command.Parameters.AddWithValue("@DPI", DPI);
                 reader = command.ExecuteReader();
                 while (reader.Read())
                 {
@@ -82,6 +83,7 @@ namespace Servicios.Servicios
                     empleadoSueldo.SUELDO_BASE = reader.GetDecimal(2);
                     empleadoSueldo.BONIFICACION = reader.GetDecimal(3);
                     empleadoSueldos.Add(empleadoSueldo);
+                    break;
                 }
                 return empleadoSueldos;
             }

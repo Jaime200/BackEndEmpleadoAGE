@@ -9,7 +9,7 @@ namespace Servicios.Interfaz
 {
     public interface ISUELDO_EMPLEADO
     {
-        public List<Modelos.SUELDO_EMPLEADO> getEmpleadoSueldos(SqlConnection cnn);
+        public List<Modelos.SUELDO_EMPLEADO> getEmpleadoSueldos(SqlConnection cnn, string DPI);
 
         //public Modelos.EMPLEADO getEmpleado(SqlConnection cnn, string DPI);
 

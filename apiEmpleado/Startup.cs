@@ -33,6 +33,7 @@ namespace apiEmpleado
             parametro_conexion.PSW = "12345";
             services.AddSingleton<Servicios.Interfaz.IConexion>(cnn => new Servicios.Servicios.ConexionService(parametro_conexion));
             services.AddScoped<Servicios.Interfaz.IEMPLEADO, Servicios.Servicios.EmpleadoService>();
+            services.AddScoped<Servicios.Interfaz.ISUELDO_EMPLEADO, Servicios.Servicios.EmpleadoSueldoService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
