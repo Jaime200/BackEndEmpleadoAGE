@@ -82,24 +82,24 @@ namespace Servicios.Servicios
                 string sQUery = @"SELECT
                                     DPI
                                     ,PRIMER_NOMBRE
-                                    ,SEGUNDO_NOMBRE
+                                    ,ISNULL(SEGUNDO_NOMBRE,'')
                                     ,PRIMER_APELLIDO
-                                    ,SEGUNDO_APELLIDO
-                                    ,APELLIDO_CASADA
+                                    ,ISNULL(SEGUNDO_APELLIDO,'')
+                                    ,ISNULL(APELLIDO_CASADA,'')
                                     ,ESTADO_CIVIL
                                     ,SEXO
                                     ,NIT
-                                    ,AFILIACION_IGSS
-                                    ,IRTRA
-                                    ,PASAPORTE 
+                                    ,ISNULL(AFILIACION_IGSS,'')
+                                    ,ISNULL(IRTRA,'')
+                                    ,ISNULL(PASAPORTE,'')
                                     FROM EMPLEADO WHERE DPI = @DPI";
                 SqlCommand command = new SqlCommand(sQUery, cnn);
-                command.Parameters.AddWithValue("@DPI", empleado.DPI);
+                command.Parameters.AddWithValue("@DPI", DPI);
                 reader = command.ExecuteReader();
                 if(!reader.HasRows) { throw new Exception($"El empleado con dpi {DPI} no existe"); }
                 while (reader.Read())
                 {
-                    empleado.DPI = reader.GetInt32(0);
+                    empleado.DPI = reader.GetInt64(0);
                     empleado.PRIMER_NOMBRE = reader.GetString(1);
                     empleado.SEGUNDO_NOMBRE = reader.GetString(2);
                     empleado.PRIMER_APELLIDO = reader.GetString(3);
@@ -135,34 +135,35 @@ namespace Servicios.Servicios
                 string sQUery = @"SELECT
                                     DPI
                                     ,PRIMER_NOMBRE
-                                    ,SEGUNDO_NOMBRE
+                                    ,ISNULL(SEGUNDO_NOMBRE,'')
                                     ,PRIMER_APELLIDO
-                                    ,SEGUNDO_APELLIDO
-                                    ,APELLIDO_CASADA
+                                    ,ISNULL(SEGUNDO_APELLIDO,'')
+                                    ,ISNULL(APELLIDO_CASADA,'')
                                     ,ESTADO_CIVIL
                                     ,SEXO
                                     ,NIT
-                                    ,AFILIACION_IGSS
-                                    ,IRTRA
-                                    ,PASAPORTE 
+                                    ,ISNULL(AFILIACION_IGSS,'')
+                                    ,ISNULL(IRTRA,'')
+                                    ,ISNULL(PASAPORTE,'')
                                     FROM EMPLEADO";
                 SqlCommand command = new SqlCommand(sQUery, cnn);
                 reader = command.ExecuteReader();
                 while (reader.Read())
                 {
                     Modelos.EMPLEADO empleado = new Modelos.EMPLEADO();
-                    empleado.DPI = reader.GetInt32(0);
+                    empleado.DPI = reader.GetInt64(0);
                     empleado.PRIMER_NOMBRE = reader.GetString(1);
-                    empleado.SEGUNDO_NOMBRE = reader.GetString(2);
+                    empleado.SEGUNDO_NOMBRE = reader.GetString(2) ?? null ;
                     empleado.PRIMER_APELLIDO = reader.GetString(3);
-                    empleado.SEGUNDO_APELLIDO = reader.GetString(4);
-                    empleado.APELLIDO_CASADA = reader.GetString(5);
+                    empleado.SEGUNDO_APELLIDO = reader.GetString(4) ?? null;
+                    empleado.APELLIDO_CASADA = reader.GetString(5) ?? null ;
                     empleado.ESTADO_CIVIL = reader.GetInt32(6);
                     empleado.SEXO = reader.GetInt32(7);
                     empleado.NIT = reader.GetString(8);
-                    empleado.AFILIACION_IGSS = reader.GetString(0);
-                    empleado.IRTRA = reader.GetString(10);
-                    empleado.PASAPORTE = reader.GetString(11);
+                    empleado.AFILIACION_IGSS = reader.GetString(9) ;
+                    empleado.IRTRA = reader.GetString(10) ;
+                    empleado.PASAPORTE = reader.GetString(11) ;
+                    empleados.Add(empleado);
                 }
                 return empleados;
             }
