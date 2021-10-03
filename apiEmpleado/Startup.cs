@@ -34,11 +34,14 @@ namespace apiEmpleado
             services.AddSingleton<Servicios.Interfaz.IConexion>(cnn => new Servicios.Servicios.ConexionService(parametro_conexion));
             services.AddScoped<Servicios.Interfaz.IEMPLEADO, Servicios.Servicios.EmpleadoService>();
             services.AddScoped<Servicios.Interfaz.ISUELDO_EMPLEADO, Servicios.Servicios.EmpleadoSueldoService>();
+            services.AddScoped<Servicios.Interfaz.ISEXO, Servicios.Servicios.SexoService>();
+            services.AddScoped<Servicios.Interfaz.IESTADO_CIVIL, Servicios.Servicios.EstadoCivilService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "apiEmpleado", Version = "v1" });
             });
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +53,11 @@ namespace apiEmpleado
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "apiEmpleado v1"));
             }
+            app.UseCors(builder => builder
+                 .AllowAnyOrigin()
+                 .AllowAnyMethod()
+                 .AllowAnyHeader());
+                        
 
             app.UseHttpsRedirection();
 

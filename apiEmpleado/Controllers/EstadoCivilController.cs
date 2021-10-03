@@ -23,7 +23,8 @@ namespace apiEmpleado.Controllers
             this.estado_civil = estado_civil;
         }
         // GET: api/<EstadoCivilController>
-        public ActionResult<List<Modelos.SEXO>> Get()
+        [HttpGet]
+        public ActionResult<List<Modelos.ESTADO_CIVIL>> Get()
         {
             try
             {
