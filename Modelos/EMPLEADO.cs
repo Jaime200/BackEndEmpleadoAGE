@@ -14,7 +14,7 @@ namespace Modelos
         private string sEGUNDO_NOMBRE;
         private string pRIMER_APELLIDO;
         private string sEGUNDO_APELLIDO;
-        private string? aPELLIDO_CASADA;
+        private string aPELLIDO_CASADA;
         private int eSTADO_CIVIL;
         private int sEXO;
         private string nIT;
