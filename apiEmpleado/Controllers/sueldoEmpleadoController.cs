@@ -26,7 +26,7 @@ namespace apiEmpleado.Controllers
 
         // GET api/<sueldoEmpleadoController>/5
         [HttpGet("{dpi}")]
-        public ActionResult<bool> Get(string  dpi)
+        public ActionResult<List<Modelos.SUELDO_EMPLEADO>> Get(string  dpi)
         {
             try
             {
@@ -42,7 +42,7 @@ namespace apiEmpleado.Controllers
 
 
         [HttpGet("{id}/{dpi}")]
-        public ActionResult<bool> Get(string id,string dpi)
+        public ActionResult<Modelos.SUELDO_EMPLEADO> Get(string id,string dpi)
         {
             try
             {
