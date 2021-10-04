@@ -36,6 +36,7 @@ namespace apiEmpleado
             services.AddScoped<Servicios.Interfaz.ISUELDO_EMPLEADO, Servicios.Servicios.EmpleadoSueldoService>();
             services.AddScoped<Servicios.Interfaz.ISEXO, Servicios.Servicios.SexoService>();
             services.AddScoped<Servicios.Interfaz.IESTADO_CIVIL, Servicios.Servicios.EstadoCivilService>();
+            services.AddScoped<Servicios.Interfaz.IDIRECCION_EMPLEADO, Servicios.Servicios.DireccionEmpleado>();
             services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null); ;
             services.AddSwaggerGen(c =>
             {
