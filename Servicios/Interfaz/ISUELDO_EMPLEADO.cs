@@ -11,7 +11,7 @@ namespace Servicios.Interfaz
     {
         public List<Modelos.SUELDO_EMPLEADO> getEmpleadoSueldos(SqlConnection cnn, string DPI);
 
-        //public Modelos.EMPLEADO getEmpleado(SqlConnection cnn, string DPI);
+        public Modelos.SUELDO_EMPLEADO getEmpleadoSueldoById(SqlConnection cnn, string ID,string DPI);
 
         public bool addEmpleadoSueldo(SqlConnection cnn, Modelos.SUELDO_EMPLEADO sueldoEmpleado);
 

@@ -22,12 +22,7 @@ namespace apiEmpleado.Controllers
             this.conexionSQL = conexionSQL;
             this.sueldoEmpleadoService = sueldoEmpleadoService;
         }
-        // GET: api/<sueldoEmpleadoController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+
 
         // GET api/<sueldoEmpleadoController>/5
         [HttpGet("{dpi}")]
@@ -45,13 +40,29 @@ namespace apiEmpleado.Controllers
             }
         }
 
-        // POST api/<sueldoEmpleadoController>
-        [HttpPost]
-        public ActionResult<bool> Post([FromBody] Modelos.SUELDO_EMPLEADO sueldoEmpleado)
+
+        [HttpGet("{id}/{dpi}")]
+        public ActionResult<bool> Get(string id,string dpi)
         {
             try
             {
-                var result = this.sueldoEmpleadoService.addEmpleadoSueldo(this.conexionSQL.getConexion(), sueldoEmpleado);
+                var result = this.sueldoEmpleadoService.getEmpleadoSueldoById(this.conexionSQL.getConexion(), id, dpi);
+                return StatusCode(200, result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+
+            }
+        }
+
+        // POST api/<sueldoEmpleadoController>
+        [HttpPost]
+        public ActionResult<bool> Post( Modelos.SUELDO_EMPLEADO newSueldoEmpleado)
+        {
+            try
+            {
+                var result = this.sueldoEmpleadoService.addEmpleadoSueldo(this.conexionSQL.getConexion(), newSueldoEmpleado);
                 return StatusCode(200, result);
             }
             catch (Exception ex)
@@ -63,11 +74,11 @@ namespace apiEmpleado.Controllers
 
         // PUT api/<sueldoEmpleadoController>/5
         [HttpPut]
-        public ActionResult<bool> Put([FromBody] Modelos.SUELDO_EMPLEADO sueldoEmpleado)
+        public ActionResult<bool> Put([FromBody] Modelos.SUELDO_EMPLEADO updateSueldoEmpleado)
         {
             try
             {
-                var result = this.sueldoEmpleadoService.putEmpleadoSueldo(this.conexionSQL.getConexion(), sueldoEmpleado);
+                var result = this.sueldoEmpleadoService.putEmpleadoSueldo(this.conexionSQL.getConexion(), updateSueldoEmpleado);
                 return StatusCode(200, result);
             }
             catch (Exception ex)

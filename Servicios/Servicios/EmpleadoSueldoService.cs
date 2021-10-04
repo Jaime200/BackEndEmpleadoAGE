@@ -60,6 +60,46 @@ namespace Servicios.Servicios
             }
         }
 
+        public SUELDO_EMPLEADO getEmpleadoSueldoById(SqlConnection cnn, string ID, string DPI)
+        {
+            SqlDataReader reader = null;
+            Modelos.SUELDO_EMPLEADO empleadoSueldo = new Modelos.SUELDO_EMPLEADO();
+            try
+            {
+                string sQUery = @"SELECT [ID]
+                                  ,[DPI]
+                                  ,[SUELDO_BASE]
+                                  ,[BONIFICACION]
+                              FROM [dbo].[SUELDO_EMPLEADO]
+                              where DPI = @DPI AND ELIMINADO = 0 AND ID = @ID";
+                SqlCommand command = new SqlCommand(sQUery, cnn);
+                command.Parameters.AddWithValue("@DPI", DPI);
+                command.Parameters.AddWithValue("@ID", ID);
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    
+                    empleadoSueldo.ID = reader.GetInt32(0);
+                    empleadoSueldo.DPI = reader.GetInt64(1);
+                    empleadoSueldo.SUELDO_BASE = reader.GetDecimal(2);
+                    empleadoSueldo.BONIFICACION = reader.GetDecimal(3);
+
+                    break;
+
+                }
+                return empleadoSueldo;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message, ex.InnerException);
+            }
+            finally
+            {
+                if (reader != null) reader.Close();
+            }
+        }
+
         public List<SUELDO_EMPLEADO> getEmpleadoSueldos(SqlConnection cnn, string DPI)
         {
             SqlDataReader reader = null;
@@ -79,11 +119,11 @@ namespace Servicios.Servicios
                 {
                     Modelos.SUELDO_EMPLEADO empleadoSueldo = new Modelos.SUELDO_EMPLEADO();
                     empleadoSueldo.ID = reader.GetInt32(0);
-                    empleadoSueldo.DPI = reader.GetInt32(1);
+                    empleadoSueldo.DPI = reader.GetInt64(1);
                     empleadoSueldo.SUELDO_BASE = reader.GetDecimal(2);
                     empleadoSueldo.BONIFICACION = reader.GetDecimal(3);
                     empleadoSueldos.Add(empleadoSueldo);
-                    break;
+                    
                 }
                 return empleadoSueldos;
             }
